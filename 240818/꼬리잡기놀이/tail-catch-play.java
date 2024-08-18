@@ -52,30 +52,55 @@ public class Main {
 
 
         for (int i = 0; i < M; i++) {
-            Collections.sort(list.get(i), (o1, o2) -> o1.num - o2.num);
+
 
             node nd = list.get(i).get(0);
             node nd2 = list.get(i).get(1);
 
+            node nd3 = list.get(i).get(list.get(i).size() - 1);
+            node nd4 = list.get(i).get(list.get(i).size() - 2);
 
-            for (int k = 0; k < 4; k++) {
-                int nx = nd.x + dx[k];
-                int ny = nd.y + dy[k];
-                if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+            if (nd.num == 1) {
+                for (int k = 0; k < 4; k++) {
+                    int nx = nd.x + dx[k];
+                    int ny = nd.y + dy[k];
+                    if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
 
-                if (arr1[ny][nx] != 0 && !(nd2.y == ny && nd2.x == nx)) {
+                    if (arr1[ny][nx] != 0 && !(nd2.y == ny && nd2.x == nx)) {
 
-                    for (int w = list.get(i).size() - 1; w >= 1; w--) {
-                        node before = list.get(i).get(w - 1);
-                        list.get(i).get(w).y = before.y;
-                        list.get(i).get(w).x = before.x;
+                        for (int w = list.get(i).size() - 1; w >= 1; w--) {
+                            node before = list.get(i).get(w - 1);
+                            list.get(i).get(w).y = before.y;
+                            list.get(i).get(w).x = before.x;
+                        }
+                        nd.y = ny;
+                        nd.x = nx;
+                        list.get(i).set(0, nd);
+                        break;
                     }
-                    nd.y = ny;
-                    nd.x = nx;
-                    list.get(i).set(0, nd);
-                    break;
+                }
+            }else{
+                for (int k = 0; k < 4; k++) {
+                    int nx = nd3.x + dx[k];
+                    int ny = nd3.y + dy[k];
+                    if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+
+                    if (arr1[ny][nx] != 0 && !(nd4.y == ny && nd4.x == nx)) {
+
+                        for (int w = 0; w < list.get(i).size()-1; w++) {
+                            node before = list.get(i).get(w + 1);
+                            list.get(i).get(w).y = before.y;
+                            list.get(i).get(w).x = before.x;
+                        }
+                        nd3.y = ny;
+                        nd3.x = nx;
+                        list.get(i).set(list.get(i).size() - 1, nd3);
+                        break;
+                    }
                 }
             }
+
+
         }
     }
 
@@ -85,7 +110,8 @@ public class Main {
 
             if (list.get(team).get(i).num == 1) {
                 list.get(team).get(i).num = 3;
-            }else if (list.get(team).get(i).num == 3) {
+
+            } else if (list.get(team).get(i).num == 3) {
                 list.get(team).get(i).num = 1;
             }
         }
