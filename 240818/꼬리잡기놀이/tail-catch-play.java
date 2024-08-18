@@ -23,14 +23,20 @@ public class Main {
     public static void findTeams(int x, int y, int team) {
         Queue<node> qu = new ArrayDeque<>();
         qu.offer(new node(x, y, 0));
+        int cnt = 1;
+        node last = null;
+
 
         while (!qu.isEmpty()) {
 
             node nd = qu.poll();
 
             if (arr1[nd.y][nd.x] != 4 && arr1[nd.y][nd.x] != 0) {
-
-                list.get(team).add(new node(nd.x, nd.y, arr1[nd.y][nd.x]));
+                if (arr1[nd.y][nd.x] == 3) {
+                    last = new node(nd.x, nd.y, 0);
+                    continue;
+                }
+                list.get(team).add(new node(nd.x, nd.y, cnt++));
             }
 
             for (int i = 0; i < 4; i++) {
@@ -45,7 +51,9 @@ public class Main {
                 }
             }
         }
-        Collections.sort(list.get(team), (o1, o2) -> o1.num - o2.num);
+        last.num = cnt;
+        list.get(team).add(last);
+        //Collections.sort(list.get(team), (o1, o2) -> o1.num - o2.num);
     }
 
     public static void moveTeam() {
@@ -79,7 +87,7 @@ public class Main {
                         break;
                     }
                 }
-            }else{
+            } else {
                 for (int k = 0; k < 4; k++) {
                     int nx = nd3.x + dx[k];
                     int ny = nd3.y + dy[k];
@@ -87,7 +95,7 @@ public class Main {
 
                     if (arr1[ny][nx] != 0 && !(nd4.y == ny && nd4.x == nx)) {
 
-                        for (int w = 0; w < list.get(i).size()-1; w++) {
+                        for (int w = 0; w < list.get(i).size() - 1; w++) {
                             node before = list.get(i).get(w + 1);
                             list.get(i).get(w).y = before.y;
                             list.get(i).get(w).x = before.x;
@@ -106,15 +114,11 @@ public class Main {
 
     public static void reverseTeam(int team) {
 
-        for (int i = 0; i < list.get(team).size(); i++) {
+        int start = list.get(team).get(0).num;
+        int end = list.get(team).get(list.size() - 1).num;
 
-            if (list.get(team).get(i).num == 1) {
-                list.get(team).get(i).num = 3;
-
-            } else if (list.get(team).get(i).num == 3) {
-                list.get(team).get(i).num = 1;
-            }
-        }
+        list.get(team).get(list.size() - 1).num = start;
+        list.get(team).get(0).num = end;
     }
 
 
@@ -233,7 +237,7 @@ public class Main {
         int teamNum = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (arr1[i][j] != 0 && !vi[i][j]) {
+                if (arr1[i][j] == 1 && !vi[i][j]) {
                     vi[i][j] = true;
                     findTeams(j, i, teamNum++);
                 }
