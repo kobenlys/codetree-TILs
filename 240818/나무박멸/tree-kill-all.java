@@ -94,6 +94,7 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
+
                 if(arr1[i][j] == -1) continue;
                 int cnt = arr1[i][j];
                 int idx = 1;
@@ -160,7 +161,7 @@ public class Main {
             if (arr1[ny][nx] == -1) break;
 
             arr1[ny][nx] = 0;
-            antiBug[ny][nx] = C;
+            antiBug[ny][nx] = C+1;
             if(idx == K+1) break;
         }
 
@@ -173,7 +174,7 @@ public class Main {
             if (arr1[ny][nx] == -1) break;
 
             arr1[ny][nx] = 0;
-            antiBug[ny][nx] = C;
+            antiBug[ny][nx] = C+1;
             if(idx == K+1) break;
         }
 
@@ -186,7 +187,7 @@ public class Main {
             if (nx < 0 || ny < 0 || nx >= N || ny >= N) break;
             if (arr1[ny][nx] == -1) break;
             arr1[ny][nx] = 0;
-            antiBug[ny][nx] = C;
+            antiBug[ny][nx] = C+1;
             if(idx == K+1) break;
 
         }
@@ -199,7 +200,7 @@ public class Main {
             if (nx < 0 || ny < 0 || nx >= N || ny >= N) break;
             if (arr1[ny][nx] == -1) break;
             arr1[ny][nx] = 0;
-            antiBug[ny][nx] = C;
+            antiBug[ny][nx] = C+1;
             if(idx == K+1) break;
         }
     }
@@ -226,14 +227,6 @@ public class Main {
 
         for (int i = 0; i < M; i++) {
 
-            //제초제 효과 제거
-            for (int j = 0; j < N; j++) {
-                for (int k = 0; k < M; k++) {
-                    if(antiBug[i][j] > 0){
-                        antiBug[i][j]--;
-                    }
-                }
-            }
 
             // 성장
             for (int j = 0; j < N; j++) {
