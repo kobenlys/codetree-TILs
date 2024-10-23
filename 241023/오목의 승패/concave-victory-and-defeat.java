@@ -18,12 +18,12 @@ public class Main {
                 cnt++;
 
                 if(cnt == 5){
-                    if(i == 7){
+                    if(i == 6){
                         System.out.println(color);
                         System.out.println((ny+1)+" "+(nx+1));
                     }else{
                         System.out.println(color);
-                        System.out.println((ny+1)+" "+(nx+1));
+                        System.out.println((y+1)+" "+(x+1));
                     }
                     System.exit(0);
                 }
