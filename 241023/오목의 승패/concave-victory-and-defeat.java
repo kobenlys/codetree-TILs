@@ -4,7 +4,7 @@ import java.io.*;
 public class Main {
     public static int[][] arr1;
 
-    public static boolean isWin(int color, int x, int y){
+    public static void isWin(int color, int x, int y){
         int[] dx = {0,0,-1,1,-1,1,-1,1};
         int[] dy = {-1,1,0,0,-1,-1,1,1};
 
@@ -16,14 +16,19 @@ public class Main {
                 if(nx < 0 || ny < 0 || nx >=19 || ny >= 19) break;
                 if(arr1[ny][nx] != color) break;
                 cnt++;
-            }
 
-            if(cnt == 5){
-                return true;
+                if(cnt == 5){
+                    if(i == 7){
+                        System.out.println(color);
+                        System.out.println((ny+1)+" "+(nx+1));
+                    }else{
+                        System.out.println(color);
+                        System.out.println((ny+1)+" "+(nx+1));
+                    }
+                    System.exit(0);
+                }
             }
-        }     
-
-        return false;
+        }
     }
 
     public static void main(String[] args) throws IOException{
@@ -41,10 +46,8 @@ public class Main {
 
         for(int i=0; i<19; i++){
             for(int j=0; j<19; j++){
-                if( arr1[i][j] > 0 && isWin(arr1[i][j], j, i)){
-                    System.out.println(arr1[i][j]);
-                    System.out.println((i+1)+" "+(j+1));
-                    System.exit(0);
+                if( arr1[i][j] > 0){
+                    isWin(arr1[i][j], j, i);
                 }
             }
         }
