@@ -10,6 +10,9 @@ public class Main {
 
         for(int i=0; i<8; i++){
             int cnt = 1;
+            int ansX = x+1;
+            int ansY = y+1;
+
             for(int j=1; j<=6; j++){
                 int nx = x + dx[i] * j;
                 int ny = y + dy[i] * j;
@@ -19,15 +22,18 @@ public class Main {
 
                 if(cnt == 5){
                     if(i == 6){
-                        System.out.println(color);
-                        System.out.println((ny+1)+" "+(nx+1));
-                    }else{
-                        System.out.println(color);
-                        System.out.println((y+1)+" "+(x+1));
+                        ansX = nx + 1;
+                        ansY = ny + 1;
                     }
-                    System.exit(0);
                 }
+            }   
+
+            if(cnt == 5){
+                System.out.println(color);
+                System.out.println(ansY +" "+ ansX);
+                System.exit(0);
             }
+            
         }
     }
 
